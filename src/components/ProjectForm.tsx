@@ -42,6 +42,37 @@ export function ProjectForm({ onSubmit, isLoading }: ProjectFormProps) {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const presetExamples = [
+    {
+      title: "AI Code Assistant",
+      description: "I built an AI-powered VS Code extension that helps developers write better code. It analyzes your code in real-time and suggests improvements, catches bugs before they happen, and generates documentation automatically. Perfect for solo developers and teams who want to ship faster with fewer bugs.",
+      includeDemo: true,
+      demoLink: "https://marketplace.visualstudio.com/my-extension",
+      includeGitHub: true,
+      githubLink: "https://github.com/username/ai-code-assistant"
+    },
+    {
+      title: "Social Media Scheduler",
+      description: "I created a simple social media scheduling tool for indie makers. Upload your content, set your posting schedule, and it automatically posts to Twitter, LinkedIn, and Instagram. Built it because existing tools were too expensive and complex for solo entrepreneurs.",
+      includeDemo: true,
+      demoLink: "https://my-social-scheduler.com",
+      includeLiveLink: true,
+      liveLink: "https://my-social-scheduler.com"
+    }
+  ];
+
+  const loadPreset = (preset: typeof presetExamples[0]) => {
+    setFormData({
+      description: preset.description,
+      includeDemo: preset.includeDemo || false,
+      demoLink: preset.demoLink || "",
+      includeGitHub: preset.includeGitHub || false,
+      githubLink: preset.githubLink || "",
+      includeLiveLink: preset.includeLiveLink || false,
+      liveLink: preset.liveLink || "",
+    });
+  };
+
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
@@ -50,6 +81,25 @@ export function ProjectForm({ onSubmit, isLoading }: ProjectFormProps) {
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {/* Preset Examples */}
+        <div className="mb-6 space-y-3">
+          <Label className="text-sm font-medium">Try these examples:</Label>
+          <div className="flex flex-wrap gap-2">
+            {presetExamples.map((preset, index) => (
+              <Button
+                key={index}
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => loadPreset(preset)}
+                className="text-xs"
+              >
+                {preset.title}
+              </Button>
+            ))}
+          </div>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <Textarea
