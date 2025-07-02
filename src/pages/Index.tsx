@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProjectForm } from "@/components/ProjectForm";
+import { ProjectForm, ProjectFormData } from "@/components/ProjectForm";
 import { TweetDrafts } from "@/components/TweetDrafts";
 import { ApiKeyInput } from "@/components/ApiKeyInput";
 import { toast } from "sonner";
@@ -9,7 +9,7 @@ const Index = () => {
   const [tweets, setTweets] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const generateTweets = async (projectDescription: string) => {
+  const generateTweets = async (formData: ProjectFormData) => {
     if (!apiKey) {
       toast.error("Please set your OpenAI API key first");
       return;
@@ -17,9 +17,32 @@ const Index = () => {
 
     setIsLoading(true);
     try {
+      // Build additional context for links
+      let additionalContext = "";
+      const links = [];
+      
+      if (formData.includeDemo && formData.demoLink) {
+        additionalContext += "\nInclude demo link in appropriate tweets.";
+        links.push(`Demo: ${formData.demoLink}`);
+      }
+      
+      if (formData.includeGitHub && formData.githubLink) {
+        additionalContext += "\nInclude GitHub link in appropriate tweets.";
+        links.push(`GitHub: ${formData.githubLink}`);
+      }
+      
+      if (formData.includeLiveLink && formData.liveLink) {
+        additionalContext += "\nInclude live website link in appropriate tweets.";
+        links.push(`Live: ${formData.liveLink}`);
+      }
+
       const prompt = `Generate 4 engaging Twitter/X posts based on this project description using the SaaS Builder Tweet Formula:
 
-"${projectDescription}"
+"${formData.description}"
+
+${additionalContext ? `Additional context: ${additionalContext}` : ""}
+
+${links.length > 0 ? `Available links to include when appropriate:\n${links.join('\n')}` : ""}
 
 Follow this EXACT readable format (like Yasser's tweet example):
 
@@ -30,6 +53,7 @@ Line 4: [Empty line for spacing]
 Line 5: "You can then [specific result or use case]"
 Line 6: [Empty line for spacing]
 Line 7: @mentions of relevant tools/communities (on separate lines)
+${links.length > 0 ? 'Line 8: [Empty line for spacing]\nLine 9: Include 1-2 relevant links naturally' : ''}
 
 Example format:
 I spent the last 48 hours building [project] using [tech].
@@ -41,12 +65,14 @@ You can then [specific use case or result].
 @RelevantTool
 @RelevantCommunity
 @RelevantPlatform
+${links.length > 0 ? '\n[Include relevant link here when it makes sense]' : ''}
 
 Make it:
 - Readable and well-formatted with proper line breaks
 - Under 280 characters total
 - Authentic and exciting
 - Include relevant @mentions
+${links.length > 0 ? '- Include provided links naturally in 1-2 of the tweets where it makes sense' : ''}
 
 Format: Return only the 4 tweets, separated by "---" between each tweet.`;
 
