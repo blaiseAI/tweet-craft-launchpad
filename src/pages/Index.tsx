@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ProjectForm, ProjectFormData } from "@/components/ProjectForm";
 import { TweetDrafts } from "@/components/TweetDrafts";
 import { ApiKeyInput } from "@/components/ApiKeyInput";
+import { Testimonials } from "@/components/Testimonials";
 import { toast } from "sonner";
 
 const Index = () => {
@@ -134,28 +135,37 @@ Format: Return only the 4 tweets, separated by "---" between each tweet.`;
   });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-subtle">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          <div className="mb-6">
+            <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+              ✨ AI-Powered Tweet Generation
+            </span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
             LaunchTweet GPT
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Transform your SaaS projects into viral tweets. Perfect for builders showcasing their latest tools and experiments.
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Transform your SaaS projects into <span className="text-primary font-semibold">viral tweets</span>. 
+            Perfect for builders showcasing their latest tools and experiments.
           </p>
         </div>
 
         <div className="flex flex-col items-center gap-8">
           {!apiKey ? (
-            <ApiKeyInput onApiKeySet={handleApiKeySet} />
+            <div className="w-full max-w-md">
+              <ApiKeyInput onApiKeySet={handleApiKeySet} />
+            </div>
           ) : (
             <>
-              <ProjectForm onSubmit={generateTweets} isLoading={isLoading} />
+              <div className="w-full max-w-2xl">
+                <ProjectForm onSubmit={generateTweets} isLoading={isLoading} />
+              </div>
               <TweetDrafts 
                 tweets={tweets} 
                 onRegenerate={() => {
-                  // You could implement regeneration with the same form data
                   toast.info("Please fill the form again to regenerate tweets");
                 }} 
                 isLoading={isLoading}
@@ -173,13 +183,23 @@ Format: Return only the 4 tweets, separated by "---" between each tweet.`;
                 setTweets([]);
                 toast.info("API key cleared");
               }}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors underline"
             >
               Change API Key
             </button>
           </div>
         )}
       </div>
+
+      {/* Testimonials */}
+      <Testimonials />
+
+      {/* Footer */}
+      <footer className="border-t bg-card/50 backdrop-blur-sm py-8">
+        <div className="container mx-auto px-4 text-center text-muted-foreground">
+          <p>Built with ❤️ for the indie maker community</p>
+        </div>
+      </footer>
     </div>
   );
 };

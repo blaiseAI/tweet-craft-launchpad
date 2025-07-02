@@ -20,7 +20,7 @@ export function ApiKeyInput({ onApiKeySet }: ApiKeyInputProps) {
   };
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md shadow-elegant border-0 bg-card/80 backdrop-blur-sm">
       <CardHeader className="text-center">
         <CardTitle className="flex items-center justify-center gap-2">
           <Key className="w-5 h-5" />

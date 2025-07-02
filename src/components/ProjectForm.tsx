@@ -74,7 +74,7 @@ export function ProjectForm({ onSubmit, isLoading }: ProjectFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-2xl">
+    <Card className="w-full max-w-2xl shadow-elegant border-0 bg-card/80 backdrop-blur-sm">
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-center">
           Describe your project

@@ -42,7 +42,7 @@ export function TweetDrafts({ tweets, onRegenerate, isLoading }: TweetDraftsProp
 
       <div className="grid gap-4 md:grid-cols-2">
         {tweets.map((tweet, index) => (
-          <Card key={index} className="relative">
+          <Card key={index} className="relative shadow-elegant border-0 bg-card/80 backdrop-blur-sm hover:shadow-glow transition-all duration-300">
             <CardHeader>
               <CardTitle className="text-lg">Draft {index + 1}</CardTitle>
             </CardHeader>
