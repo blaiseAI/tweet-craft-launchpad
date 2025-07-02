@@ -21,26 +21,34 @@ const Index = () => {
 
 "${projectDescription}"
 
-Follow this exact formula for each tweet:
+Follow this EXACT readable format (like Yasser's tweet example):
 
-🧪 The Tweet Formula (For SaaS Builders)
-1. Start with a time-based or effort-based hook
-   ➤ "I built X in 48 hours using [trendy tech]" or similar
+Line 1: Time-based or effort-based hook
+Line 2: [Empty line for spacing]
+Line 3: "You can now [main benefit in plain English]"
+Line 4: [Empty line for spacing] 
+Line 5: "You can then [specific result or use case]"
+Line 6: [Empty line for spacing]
+Line 7: @mentions of relevant tools/communities (on separate lines)
 
-2. Explain what your product does in a single sentence
-   ➤ "You can now [main benefit in plain English]"
+Example format:
+I spent the last 48 hours building [project] using [tech].
 
-3. Show the outcome or use case
-   ➤ "You can then use it to [specific result or feature]"
+You can now [main benefit/what it does].
 
-4. Tag relevant tools/communities for exposure
-   ➤ Include @mentions of relevant tools, communities, or platforms
+You can then [specific use case or result].
 
-5. Include emojis naturally throughout
-6. Keep under 280 characters
-7. Make it sound authentic and exciting
+@RelevantTool
+@RelevantCommunity
+@RelevantPlatform
 
-Create 4 different variations following this formula. Format: Return only the 4 tweets, separated by "---" between each tweet.`;
+Make it:
+- Readable and well-formatted with proper line breaks
+- Under 280 characters total
+- Authentic and exciting
+- Include relevant @mentions
+
+Format: Return only the 4 tweets, separated by "---" between each tweet.`;
 
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
