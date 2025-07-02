@@ -17,19 +17,30 @@ const Index = () => {
 
     setIsLoading(true);
     try {
-      const prompt = `Generate 4 engaging Twitter/X posts based on this project description:
+      const prompt = `Generate 4 engaging Twitter/X posts based on this project description using the SaaS Builder Tweet Formula:
 
 "${projectDescription}"
 
-Create tweets that:
-1. Are engaging and hook readers immediately
-2. Highlight the key benefits and unique value
-3. Include relevant emojis
-4. Use appropriate hashtags
-5. Are under 280 characters
-6. Sound authentic and exciting
+Follow this exact formula for each tweet:
 
-Format: Return only the 4 tweets, separated by "---" between each tweet.`;
+🧪 The Tweet Formula (For SaaS Builders)
+1. Start with a time-based or effort-based hook
+   ➤ "I built X in 48 hours using [trendy tech]" or similar
+
+2. Explain what your product does in a single sentence
+   ➤ "You can now [main benefit in plain English]"
+
+3. Show the outcome or use case
+   ➤ "You can then use it to [specific result or feature]"
+
+4. Tag relevant tools/communities for exposure
+   ➤ Include @mentions of relevant tools, communities, or platforms
+
+5. Include emojis naturally throughout
+6. Keep under 280 characters
+7. Make it sound authentic and exciting
+
+Create 4 different variations following this formula. Format: Return only the 4 tweets, separated by "---" between each tweet.`;
 
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
