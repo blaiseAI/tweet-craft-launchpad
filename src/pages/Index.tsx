@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProjectForm, ProjectData } from "@/components/ProjectForm";
+import { ProjectForm } from "@/components/ProjectForm";
 import { TweetDrafts } from "@/components/TweetDrafts";
 import { ApiKeyInput } from "@/components/ApiKeyInput";
 import { toast } from "sonner";
@@ -9,7 +9,7 @@ const Index = () => {
   const [tweets, setTweets] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const generateTweets = async (projectData: ProjectData) => {
+  const generateTweets = async (projectDescription: string) => {
     if (!apiKey) {
       toast.error("Please set your OpenAI API key first");
       return;
@@ -17,13 +17,9 @@ const Index = () => {
 
     setIsLoading(true);
     try {
-      const prompt = `Generate 4 engaging Twitter/X posts for a SaaS project called "${projectData.projectName}".
+      const prompt = `Generate 4 engaging Twitter/X posts based on this project description:
 
-Project Details:
-- Description: ${projectData.description}
-- Key Features: ${projectData.features}
-- Target Audience: ${projectData.targetAudience}
-- Unique Value: ${projectData.uniqueValue}
+"${projectDescription}"
 
 Create tweets that:
 1. Are engaging and hook readers immediately
@@ -31,7 +27,7 @@ Create tweets that:
 3. Include relevant emojis
 4. Use appropriate hashtags
 5. Are under 280 characters
-6. Appeal to ${projectData.targetAudience}
+6. Sound authentic and exciting
 
 Format: Return only the 4 tweets, separated by "---" between each tweet.`;
 
